@@ -1,0 +1,37 @@
+[
+  {
+    "id": "1",
+    "make": "Audi",
+    "model": "A4",
+    "year": 2019,
+    "price": 50000
+  },
+  {
+    "id": "2",
+    "make": "BMW",
+    "model": "X5",
+    "year": 2020,
+    "price": 70000
+  },
+  {
+    "id": "3",
+    "make": "Mercedes",
+    "model": "C-Class",
+    "year": 2018,
+    "price": 45000
+  },
+  {
+    "id": "4",
+    "make": "Toyota",
+    "model": "Corolla",
+    "year": 2017,
+    "price": 30000
+  },
+  {
+    "id": "5",
+    "make": "Honda",
+    "model": "Civic",
+    "year": 2016,
+    "price": 25000
+  }
+]

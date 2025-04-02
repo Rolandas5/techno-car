@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Car } from '../types/car';
 import './car-card.css';
 
@@ -6,8 +7,15 @@ interface CarCardProps {
 }
 
 export const CarCard = ({ car }: CarCardProps) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    // navogate - nuveda pagal jo ID į kitą puslapį jo neperkraunant
+    navigate(`/cars/${car.id}`);
+  };
+
   return (
-    <div className="car-card">
+    <div className="car-card" onClick={handleClick}>
       {/* <img src="" alt="Car" className="car-card-image" /> */}
       <img
         src={car.image}

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CarList } from './components/CarList/CarList';
 import { Navigation } from './components/Navigation/Navigation';
 import { CarDetails } from './components/CarDetails/CarDetails';
+import { NotFound } from './components/NotFound';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Routes>
             <Route path="/" element={<CarList />} />
             <Route path="/cars/:id" element={<CarDetails />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
       </div>

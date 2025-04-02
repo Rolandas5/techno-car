@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { NotFound } from '../NotFound';
 import axios from 'axios';
 import { Car } from '../types/car';
 import './car-details.css';
@@ -12,6 +13,7 @@ export const CarDetails = () => {
   const [car, setCar] = useState<Car | null>(null);
   // useState - yra HOOKas, kuris leidžia stebėti ir atnaujinti komponento būseną
   // Car | null - car gali būti null, kol jis dar nebuvo gautas iš serverio
+  const [error, setError] = useState(false);
   useEffect(() => {
     const fetchCarDetails = async () => {
       try {
@@ -20,22 +22,31 @@ export const CarDetails = () => {
         );
         setCar(response.data);
         // console.log('Gauti automobilio duomenys:', response.data);
+        setError(false); // jei sėkmingai gauti duomenys
       } catch (error) {
         console.error('Klaida gaunant automobilio duomenis:', error);
-        navigate('/');
+        setError(true); // nustatom klaidą
       }
     };
 
     fetchCarDetails();
     // console.log('Car ID:', id);
-  }, [id, navigate]);
+  }, [id]);
 
   // handleBackClick - funkcija, kuri grįžta į pagrindinį puslapį
   const handleBackClick = () => {
     navigate('/');
   };
 
-  if (!car) return null;
+  // Jei įvyko klaida – rodomas NotFound komponentas
+  if (error) {
+    return <NotFound />;
+  }
+
+  // Jei dar krauna – rodomas loading
+  if (!car) {
+    return <p>Kraunama...</p>;
+  }
 
   return (
     <div className="car-detail">

@@ -30,7 +30,7 @@ export const ReviewPage: React.FC = () => {
       </div>
       <div className="review-list">
         {reviews.map((review) => (
-          <ReviewCard key={review.id} {...review} />
+          <ReviewCard key={review.id} review={review} />
         ))}
       </div>
     </section>

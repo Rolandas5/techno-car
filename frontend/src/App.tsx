@@ -5,6 +5,7 @@ import { Navigation } from './components/Navigation/Navigation';
 import { CarDetails } from './components/CarDetails/CarDetails';
 import { NotFound } from './components/NotFound/NotFound';
 import { ReviewPage } from './components/ReviewPage/ReviewPage';
+import { LoginForm } from './components/LoginForm/LoginForm';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<CarList />} />
             <Route path="/cars/:id" element={<CarDetails />} />
             <Route path="/reviews" element={<ReviewPage />} />
+            <Route path="/login" element={<LoginForm />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

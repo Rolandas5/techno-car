@@ -9,7 +9,7 @@
   {
     "id": 2,
     "name": "Agnė",
-    "description": "Labai patogus salonas ir sklandus vairavimas mieste.",
+    "description": "Labai patogus salonas, sklandus vairavimas mieste.",
     "date": "2025-03-28",
     "rating": 4
   },
@@ -30,7 +30,7 @@
   {
     "id": 5,
     "name": "Vilija",
-    "description": "Visiškai patenkinta gera kaina ir mažos kuro sąnaudos.",
+    "description": "Visiškai patenkinta, gera kaina, mažos kuro sąnaudos.",
     "date": "2025-03-30",
     "rating": 4
   }

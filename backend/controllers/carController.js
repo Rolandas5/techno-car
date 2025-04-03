@@ -1,4 +1,4 @@
-// Controller - valdo logikam kaip reaguoti i API uzklausas/request'us ir kreipiasi i Model jeigu atitinka business logika
+// Controller - valdo logiką kaip reaguoti i API uzklausas/request'us ir kreipiasi i Model jeigu atitinka business logika
 const Car = require('../models/carModel');
 
 const getCars = (req, res) => {

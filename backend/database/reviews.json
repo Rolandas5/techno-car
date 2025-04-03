@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Jonas",
+    "description": "Puikus automobilis ekonomiškas ir tyliai važiuoja.",
+    "date": "2025-04-01",
+    "rating": 5
+  },
+  {
+    "id": 2,
+    "name": "Agnė",
+    "description": "Labai patogus salonas ir sklandus vairavimas mieste.",
+    "date": "2025-03-28",
+    "rating": 4
+  },
+  {
+    "id": 3,
+    "name": "Tomas",
+    "description": "Greitas, manevringas ir saugus, rekomenduoju!",
+    "date": "2025-03-30",
+    "rating": 5
+  },
+  {
+    "id": 4,
+    "name": "Petras",
+    "description": "Automobilis labai komfortiškas, patogus.",
+    "date": "2025-04-01",
+    "rating": 5
+  },
+  {
+    "id": 5,
+    "name": "Vilija",
+    "description": "Visiškai patenkinta gera kaina ir mažos kuro sąnaudos.",
+    "date": "2025-03-30",
+    "rating": 4
+  }
+]

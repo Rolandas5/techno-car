@@ -4,6 +4,7 @@ import { CarList } from './components/CarList/CarList';
 import { Navigation } from './components/Navigation/Navigation';
 import { CarDetails } from './components/CarDetails/CarDetails';
 import { NotFound } from './components/NotFound';
+import { ReviewPage } from './components/ReviewPage/ReviewPage';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Routes>
             <Route path="/" element={<CarList />} />
             <Route path="/cars/:id" element={<CarDetails />} />
+            <Route path="/reviews" element={<ReviewPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>

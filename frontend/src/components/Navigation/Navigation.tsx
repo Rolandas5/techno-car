@@ -10,6 +10,9 @@ export const Navigation = () => {
         </Link>
         <ul>
           <li>
+            <Link to="/reviews">Atsiliepimai</Link>
+          </li>
+          <li>
             <Link to="/">Pagrindinis</Link>
           </li>
         </ul>

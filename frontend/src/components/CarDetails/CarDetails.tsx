@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { NotFound } from '../NotFound';
+import { NotFound } from '../NotFound/NotFound';
 import axios from 'axios';
 import { Car } from '../types/car';
 import './car-details.css';

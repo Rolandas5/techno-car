@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CarList } from './components/CarList/CarList';
 import { Navigation } from './components/Navigation/Navigation';
 import { CarDetails } from './components/CarDetails/CarDetails';
-import { NotFound } from './components/NotFound';
+import { NotFound } from './components/NotFound/NotFound';
 import { ReviewPage } from './components/ReviewPage/ReviewPage';
 
 function App() {

@@ -18,7 +18,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
       <div className="review-card-content">
         <h3>{name}</h3>
         <div className="review-meta">
-          <span>{new Date(date).toLocaleDateString()}</span>
+          <span>{new Date(date).toLocaleDateString('lt-LT')}</span>
           {/* toLocaleDateString - formatuoja datą pagal vartotojo regioną */}
           <span className="review-rating">{renderStars(rating)}</span>
           {/* renderStars - sukuria žvaigždutes pagal reitingą */}

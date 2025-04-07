@@ -33,5 +33,40 @@
     "description": "Visiškai patenkinta, gera kaina, mažos kuro sąnaudos.",
     "date": "2025-03-30",
     "rating": 4
+  },
+  {
+    "id": 6,
+    "name": "Rolandas B",
+    "rating": 5,
+    "description": "Man patiko platforma",
+    "date": "2025-04-07T18:08:22.099Z"
+  },
+  {
+    "id": 7,
+    "name": "Rolandas B",
+    "rating": 5,
+    "description": "Man patiko platforma",
+    "date": "2025-04-07T18:08:25.994Z"
+  },
+  {
+    "id": "74050b97-8b90-4888-8520-9f7da6591ac5",
+    "name": "Rolandas B",
+    "rating": 5,
+    "description": "Man patiko platforma",
+    "date": "2025-04-07T18:10:48.708Z"
+  },
+  {
+    "id": "99a5562e-7e14-49d4-a576-6f25f9f8a65c",
+    "name": "Rolandas B",
+    "rating": 5,
+    "description": "Man patiko platforma",
+    "date": "2025-04-07T18:13:07.659Z"
+  },
+  {
+    "id": "285f7c46-c15f-4164-af37-443730301714",
+    "name": "Jonas",
+    "rating": 1,
+    "description": "Man patiko platforma",
+    "date": "2025-04-07T18:14:28.507Z"
   }
 ]

@@ -4,7 +4,7 @@ import { CarList } from './components/CarList/CarList';
 import { Navigation } from './components/Navigation/Navigation';
 import { CarDetails } from './components/CarDetails/CarDetails';
 import { NotFound } from './components/NotFound/NotFound';
-import { ReviewPage } from './components/ReviewPage/ReviewPage';
+import ReviewPage from './components/ReviewPage/ReviewPage';
 import { LoginForm } from './components/LoginForm/LoginForm';
 
 function App() {

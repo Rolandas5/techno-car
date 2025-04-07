@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { CarCard } from '../CarCard/CarCard';
 import { Car } from '../types/car';
 import './car-list.css';
+import { API_URL } from '../../constants/global';
 import axios from 'axios';
 
 export const CarList = () => {
@@ -11,7 +12,7 @@ export const CarList = () => {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/cars');
+        const response = await axios.get(`${API_URL}/cars`);
         setCars(response.data);
       } catch (error) {
         console.log(error);

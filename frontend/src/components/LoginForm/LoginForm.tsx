@@ -1,4 +1,3 @@
-import React from 'react';
 import './login-form.css';
 
 export const LoginForm = () => {
@@ -14,9 +13,13 @@ export const LoginForm = () => {
           <label>Password</label>
           <input type="password" placeholder="Enter password" required />
 
-          <a href="#" className="forgot-password">Forgot Password?</a>
+          <a href="#" className="forgot-password">
+            Forgot Password?
+          </a>
 
-          <button type="submit" className="login-button">LOGIN</button>
+          <button type="submit" className="login-button">
+            LOGIN
+          </button>
 
           <p className="signup-text">
             Not a member? <a href="#">Signup now</a>

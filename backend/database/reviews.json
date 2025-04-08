@@ -68,5 +68,12 @@
     "rating": 1,
     "description": "Man patiko platforma",
     "date": "2025-04-07T18:14:28.507Z"
+  },
+  {
+    "id": "99a2dd41-2b32-4229-bdf5-e0a55ae60c96",
+    "name": "Rolandas Bendorius",
+    "rating": 5,
+    "description": "Labai geras automobilis",
+    "date": "2025-04-08T21:18:20.651Z"
   }
 ]

@@ -75,5 +75,12 @@
     "rating": 5,
     "description": "Labai geras automobilis",
     "date": "2025-04-08T21:18:20.651Z"
+  },
+  {
+    "id": "e76318fa-d4ca-4c7d-95cf-635374d59596",
+    "name": "Lina Mitruleviciute",
+    "rating": 4,
+    "description": "Puikus automobilis",
+    "date": "2025-04-08T21:19:52.189Z"
   }
 ]

@@ -6,7 +6,7 @@ import './review-page.css';
 import { API_URL } from '../../constants/global';
 import { ReviewModal } from '../ReviewModal/ReviewModal';
 
-export const ReviewsPage = () => {
+export const ReviewPage = () => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -51,5 +51,3 @@ export const ReviewsPage = () => {
     </>
   );
 };
-
-export default ReviewsPage;

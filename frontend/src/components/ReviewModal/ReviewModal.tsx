@@ -16,6 +16,7 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [rating, setRating] = useState<number | ''>('');
+  const [error, setError] = useState<string | null>(null); // klaidos pranešimas
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,8 +31,14 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
       await axios.post(`${API_URL}/reviews`, newReview); // Pateikti atsiliepimą
       onModalClose(); // uždaryti modalą po pateikimo
       onSubmitSuccess?.(); // atnaujina sąrašą tėviniame komponente
+      setError(null); // išvalyti klaidos pranešimą
     } catch (error) {
-      console.error('Klaida siunčiant atsiliepimą:', error);
+      if (axios.isAxiosError(error)) {
+        // patikrinti ar tai axios klaida
+        const errorMessage =
+          error.response?.data?.error || 'Įvyko klaida siunčiant atsiliepimą';
+        setError(errorMessage);
+      }
     }
   };
 
@@ -77,6 +84,11 @@ export const ReviewModal: React.FC<ReviewModalProps> = ({
               // kad būtų galima įvesti tik skaičius nuo 1 iki 5
             />
           </div>
+
+          {error && <div className="error-container">{error}</div>}
+          {/* klaidos pranešimas */}
+          {/* <div className="error-container">Įvyko klaida</div> */}
+          {/* čia galima pridėti daugiau informacijos apie klaidą */}
 
           <div className="modal-actions">
             <button type="button" onClick={onModalClose}>

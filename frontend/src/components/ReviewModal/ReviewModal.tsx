@@ -6,7 +6,7 @@ import { API_URL } from '../../constants/global';
 interface ReviewModalProps {
   onModalClose: () => void;
   onSubmitSuccess?: () => void;
-  // tais papildomas props, kad būtų galima atnaujinti sąrašą tėviniame komponente
+  // onSubmitSuccess?: () => void; // tai papildomas props, kad būtų galima atnaujinti sąrašą tėviniame komponente
 }
 
 export const ReviewModal: React.FC<ReviewModalProps> = ({

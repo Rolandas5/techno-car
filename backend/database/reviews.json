@@ -96,5 +96,12 @@
     "rating": 4,
     "description": "Super duper",
     "date": "2025-04-09T15:33:18.959Z"
+  },
+  {
+    "id": "069f024a-791f-4b76-a288-0364ad7b4d76",
+    "name": "Kostas Pempė",
+    "rating": 5,
+    "description": "Auto važiuoja",
+    "date": "2025-04-09T15:47:47.563Z"
   }
 ]

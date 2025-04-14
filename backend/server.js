@@ -33,7 +33,7 @@ mongoose
     console.error('Klaida jungiantis:', error);
   });
 
-// Paleidžiame serverį
+ // Paleidžiame serverį
 app.listen(PORT, () => {
   console.log(`Serveris veikia: http://localhost:${PORT}`);
 });

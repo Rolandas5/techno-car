@@ -1,62 +1,54 @@
 .review-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   background-color: white;
   border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  padding: 24px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
   border: 1px solid #e2e8f0;
   transition: all 0.3s ease-in-out;
-  position: relative;
-  cursor: pointer;
+
+  min-height: 240px;
+  height: 100%; /* ← svarbiausia kortelių vienodumui! */
 }
 
-.review-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, #3182ce, #63b3ed);
+/* Išnykimo animacija */
+.fade-out {
   opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+  transform: scale(0.95);
 }
 
-.review-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-}
-
-.review-card:hover::before {
-  opacity: 1;
-}
-
-.review-card-content {
-  padding: 1.5rem;
-}
-
-.review-card-content h3 {
-  margin: 0 0 0.5rem 0;
-  color: #2d3748;
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
+/* Papildomi elementai */
 .review-meta {
   display: flex;
   justify-content: space-between;
-  font-size: 0.95rem;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 14px;
   color: #718096;
-  margin-bottom: 1rem;
 }
 
 .review-rating {
-  color: #f6c900;
-  font-size: 1.1rem;
+  color: #f5b301;
+  font-size: 20px;
+  font-weight: bold;
 }
 
-.review-card-content p {
-  margin: 0;
-  color: #4a5568;
-  font-size: 1.1rem;
-  line-height: 1.6;
+.delete-button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  background-color: #e53e3e;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  align-self: flex-start;
+  transition: background-color 0.2s ease;
+}
+
+.delete-button:hover {
+  background-color: #c53030;
 }

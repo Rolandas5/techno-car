@@ -48,3 +48,16 @@ exports.getReviewById = async (req, res) => {
     res.status(500).json({ error: 'Klaida gaunant atsiliepimą' });
   }
 };
+
+exports.deleteReview = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const review = await Review.findByIdAndDelete(id);
+    if (!review) {
+      return res.status(404).json({ message: 'Atsiliepimas nerastas' });
+    }
+    res.status(204).send(); // No Content
+  } catch (error) {
+    res.status(500).json({ message: 'Serverio klaida trinant atsiliepimą' });
+  }
+};

@@ -19,6 +19,15 @@ export const ReviewPage = () => {
     }
   };
 
+  const handleDelete = async (id: string) => {
+    try {
+      await axios.delete(`${API_URL}/reviews/${id}`);
+      setReviews((prev) => prev.filter((r) => r._id !== id));
+    } catch (error) {
+      console.error('Klaida trinant atsiliepimą:', error);
+    }
+  };
+
   useEffect(() => {
     fetchReviews();
   }, []);
@@ -38,7 +47,11 @@ export const ReviewPage = () => {
         </div>
         <div className="review-list">
           {reviews.map((review) => (
-            <ReviewCard key={review._id} review={review} />
+            <ReviewCard
+              key={review._id}
+              review={review}
+              onDelete={handleDelete}
+            />
           ))}
         </div>
       </section>

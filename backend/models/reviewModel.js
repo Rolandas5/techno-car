@@ -6,6 +6,7 @@ const reviewSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
+      trim: true,
     },
     rating: {
       type: Number,
@@ -16,10 +17,12 @@ const reviewSchema = new mongoose.Schema(
     description: {
       type: String,
       required: true,
+      trim: true,
     },
   },
   {
     timestamps: true, // Automatiškai prideda createdAt ir updatedAt
+    collection: 'reviews', // Nurodo kolekcijos pavadinimą MongoDB
   }
 );
 

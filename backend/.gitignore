@@ -1,0 +1,16 @@
+# Node.js
+backend/node_modules
+
+# aplinkos kintamieji
+.env
+
+# log failai
+*.log
+npm-debug.log*
+
+# OS failai
+.DS_Store
+Thumbs.db
+
+# VS Code nustatymai
+.vscode/

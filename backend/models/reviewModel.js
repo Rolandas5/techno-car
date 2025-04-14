@@ -1,31 +1,27 @@
-// Model - atsakingas uz duomenu bazes operacijas
-const fs = require('fs');
-const filePath = './database/reviews.json';
-const { v4: uuidv4 } = require('uuid');
+const mongoose = require('mongoose');
 
-const getAllReviews = () => {
-  const data = fs.readFileSync(filePath);
+// Apibrėžiame atsiliepimo schemą
+const reviewSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    rating: {
+      type: Number,
+      required: true,
+      min: 1,
+      max: 5,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+  },
+  {
+    timestamps: true, // Automatiškai prideda createdAt ir updatedAt
+  }
+);
 
-  // JSON.parse - konvertuoja JSON string i Javascript Objekta
-  return JSON.parse(data);
-};
-
-const createReview = (reviewData) => {
-  const reviews = getAllReviews();
-
-  const newReview = {
-    id: uuidv4(),
-    ...reviewData,
-    date: new Date().toISOString(),
-  };
-
-  reviews.push(newReview);
-  fs.writeFileSync(filePath, JSON.stringify(reviews, null, 2));
-
-  return newReview;
-};
-
-module.exports = {
-  getAllReviews,
-  createReview,
-};
+// Naudojame bendrą `mongoose` prisijungimą
+module.exports = mongoose.model('Review', reviewSchema);

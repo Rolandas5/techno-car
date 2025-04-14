@@ -38,7 +38,7 @@ export const ReviewPage = () => {
         </div>
         <div className="review-list">
           {reviews.map((review) => (
-            <ReviewCard key={review.id} review={review} />
+            <ReviewCard key={review._id} review={review} />
           ))}
         </div>
       </section>

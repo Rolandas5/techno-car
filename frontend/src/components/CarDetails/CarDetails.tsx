@@ -9,7 +9,7 @@ import './car-details.css';
 export const CarDetails = () => {
   const navigate = useNavigate();
   // useParams - yra HOOKas, kuris leidžia gauti parametrus iš URL pvz id => /cars/:id
-  const { id } = useParams();
+  const { id: carId } = useParams();
 
   const [car, setCar] = useState<Car | null>(null);
   // useState - yra HOOKas, kuris leidžia stebėti ir atnaujinti komponento būseną
@@ -19,7 +19,7 @@ export const CarDetails = () => {
   useEffect(() => {
     const fetchCarDetails = async () => {
       try {
-        const response = await axios.get(`${API_URL}/cars/${id}`);
+        const response = await axios.get(`${API_URL}/cars/${carId}`);
         setCar(response.data);
         // console.log('Gauti automobilio duomenys:', response.data);
         setError(false); // jei sėkmingai gauti duomenys
@@ -31,7 +31,7 @@ export const CarDetails = () => {
 
     fetchCarDetails();
     // console.log('Car ID:', id);
-  }, [id]);
+  }, [carId]);
 
   // handleBackClick - funkcija, kuri grįžta į pagrindinį puslapį
   const handleBackClick = () => {

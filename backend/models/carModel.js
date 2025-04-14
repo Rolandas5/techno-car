@@ -1,20 +1,42 @@
 // Model - atsakiongas uz duomenu bazes operacijas, kaip select, insert, update, delete
-const fs = require('fs');
-const filePath = './database/cars.json';
+const mongoose = require('mongoose');
 
-const getAllCars = () => {
-  const data = fs.readFileSync(filePath);
+// Sukuriame automobilio schemą
+const carSchema = new mongoose.Schema(
+  {
+    brand: {
+      type: String,
+      required: true, // pvz. „Toyota“
+    },
+    model: {
+      type: String,
+      required: true, // pvz. „Corolla“
+    },
+    year: {
+      type: Number,
+      required: true, // pvz. 2020
+    },
+    price: {
+      type: Number,
+      required: true, // pvz. 15000
+    },
+    fuelType: {
+      type: String,
+      required: false, // pvz. „Benzinas“, neprivaloma
+    },
+    mileage: {
+      type: Number,
+      required: false, // pvz. 120000
+    },
+    image: {
+      type: String,
+      required: false, // paveikslėlio URL (jei naudosite)
+    },
+  },
+  {
+    timestamps: true, // prideda createdAt ir updatedAt automatiškai
+  }
+);
 
-  // JSON.parse() - konvertuoja JSON stringa i JavaScript objekta
-  return JSON.parse(data);
-};
-
-const getCarById = (id) => {
-  const cars = getAllCars();
-  return cars.find((car) => car.id === id);
-};
-
-module.exports = {
-  getAllCars,
-  getCarById,
-};
+// Eksportuojame modelį
+module.exports = mongoose.model('Car', carSchema);

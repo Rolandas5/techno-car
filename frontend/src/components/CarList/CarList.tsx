@@ -36,7 +36,7 @@ export const CarList = () => {
         <div className="car-list">
           {cars.map((car) => (
             // <div>{car.make}</div>
-            <CarCard key={car.id} car={car} />
+            <CarCard key={car._id} car={car} />
           ))}
         </div>
       </div>

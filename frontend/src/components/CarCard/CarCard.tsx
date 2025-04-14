@@ -11,7 +11,7 @@ export const CarCard = ({ car }: CarCardProps) => {
 
   const handleClick = () => {
     // navogate - nuveda pagal jo ID į kitą puslapį jo neperkraunant
-    navigate(`/cars/${car.id}`);
+    navigate(`/cars/${car._id}`);
   };
 
   return (

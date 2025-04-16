@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const carRoutes = require('./routes/carRoutes'); // importuojame automobilių maršrutus
 const reviewRoutes = require('./routes/reviewRoutes'); // importuojame atsiliepimų maršrutus
+const authRoutes = require('./routes/authRoutes'); // importuojame autentifikacijos maršrutus
 
 // Įkeliame aplinkos kintamuosius iš .env failo
 dotenv.config();
@@ -22,6 +23,9 @@ app.use(express.json());
 app.use('/api/cars', carRoutes);
 app.use('/api/reviews', reviewRoutes);
 // app.use('/api/reviews', reviewRoutes); // Nukreipiame visas API užklausas, kurios prasideda /api/reviews į reviewRoutes failą, kuris toliau tvarkys užklausas susijusias su atsiliepimais.
+app.use('/api/auth', authRoutes); // Nukreipiame visas API užklausas, kurios prasideda /api/auth į authRoutes failą, kuris toliau tvarkys užklausas susijusias su autentifikacija.
+
+
 
 // Prisijungiame prie MongoDB naudojant mongoose
 mongoose
@@ -33,7 +37,7 @@ mongoose
     console.error('Klaida jungiantis:', error);
   });
 
- // Paleidžiame serverį
+// Paleidžiame serverį
 app.listen(PORT, () => {
   console.log(`Serveris veikia: http://localhost:${PORT}`);
 });

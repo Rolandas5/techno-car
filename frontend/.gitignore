@@ -1,5 +1,5 @@
 # Node.js
-backend/node_modules
+node_modules
 
 .env
 git add .gitignore

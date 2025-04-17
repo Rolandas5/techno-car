@@ -51,6 +51,12 @@ userSchema.pre('save', async function (next) {
   }
 });
 
+// Tikriname ar slapta=odis sutampa su MongoDB ir žmogaus įvestu
+userSchema.methods.comparePassword = async function (password) {
+  // bcrupt.compare() palygina du slaptažodžius
+  return await bcrypt.compare(password, this.password);
+};
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;

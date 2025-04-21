@@ -1,21 +1,18 @@
-import { useContext } from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
+import { useContext } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
+export const ProtectedRoute = () => {
+  // 1. issitraukiam is context'o reikalingas reiksmes
+  const { isAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-export ProtectedRout = () => {
-    // 1. Išsitraukiame iš konteksto reikšmingas reikšmes
-        const { isAuthenticated, isloading } = useContext(AuthContext);
-        //2. Jeigu dar neužkrauta, tai darome loading
-        if (isloading) {
-            return <div>Kraunama...</div>;
-        }
-
-        if (isAuthenticated) {
-            // Outlet - reiškia, kad bus rodomi children toliau (pateks į reikalingą Route, nes yra autentifikuotas)
-            return <Outlet />; // leidžiame pasiekti vidinį komponentą
-        } else {
-            // Jeigu neautentifikuotas, tai nukreipiame į prisijungimo puslapį
-            return <Navigate to="/login" />; // nukreipiame į prisijungimo puslapį
-        }
-}
+  if (isAuthenticated) {
+    // Outlet - reiskia, kad bus rodomi children toliau (pateks i reikalinga route nes yra autentifikuotas)
+    return <Outlet />;
+  } else {
+    // Jeigu neautentifikuotas, nuredirectinam i /login forma
+    navigate('/login');
+    return null;
+  }
+};

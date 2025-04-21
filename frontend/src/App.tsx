@@ -10,7 +10,7 @@ import { Register } from './components/Register/Register';
 import { Login } from './components/Login/Login';
 import { Dashboard } from './components/Dashboard/Dashboard';
 import { AuthProvider } from './context/AuthContext';
-import { ProtectedRout } from './components/ProtectedRoute/ProtectedRoute';
+import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {
   return (
@@ -28,10 +28,11 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
 
-              {/* Tikriname ar žmogus glai patekti į dashboard */}
-              <Route element={<ProtectedRout />}>
+              {/* Tikriname ar zmogus gali patekt i dashboard */}
+              <Route element={<ProtectedRoute />}>
                 <Route path="/dashboard" element={<Dashboard />} />
               </Route>
+              {/*  */}
             </Routes>
           </main>
         </div>

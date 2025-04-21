@@ -1,26 +1,27 @@
-import { useState } from 'react';
-import './Register/register.css';
+import { useContext, useState } from 'react';
+import '../Register/register.css';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 export const Login = () => {
-    const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
- 
-  
-  const handleSubmit = (e: React.FormEvent) => {
+
+  const { login } = useContext(AuthContext);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-         alert('Bandoma prisijiungti!');
-    }
+    await login(email, password);
   };
 
   return (
-    <div className="register-contaioner">
+    <div className="register-container">
       <div className="register-form-wrapper">
         <h2>Prisijungimas</h2>
 
-    <form onSubmit={handleSubmit} className="regsiter-form">
-                  <div className="form-group">
+        <form onSubmit={handleSubmit} className="register-form">
+          <div className="form-group">
             <label htmlFor="name">Email</label>
             <input
               type="text"
@@ -35,20 +36,20 @@ export const Login = () => {
             <label htmlFor="name">Password</label>
             <input
               type="password"
-              id="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
 
-                    <button type="submit" className="register-button">
-            {'Registruotis'}
+          <button type="submit" className="register-button">
+            {'Prisijungti'}
           </button>
         </form>
 
         <div className="login-link">
-          Ar jau turite paskyrą? <Link to="/login">Prisijunkite</Link>
+          Neturite paskyros? <Link to="/register">Registruokites</Link>
         </div>
       </div>
     </div>

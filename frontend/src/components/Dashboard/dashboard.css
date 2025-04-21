@@ -51,6 +51,7 @@
   flex-direction: column;
   gap: 10px;
 }
+
 .action-button {
   background-color: #f1f3f4;
   border: none;

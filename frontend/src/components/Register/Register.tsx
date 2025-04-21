@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import './register.css';
 import { Link } from 'react-router-dom';
-import { Register } from './Register';
+import { AuthContext } from '../../context/AuthContext';
 
 export const Register = () => {
   const [name, setName] = useState('');
@@ -15,22 +15,22 @@ export const Register = () => {
   const validateForm = () => {
     setPasswordError('');
 
-    // patikriname ar slaptažodžiai sutampa
+    // Patikriname ar slaptazodziai sutampa
     if (password !== confirmPassword) {
-      setPasswordError('Slaptažodžiai nesutampa!');
+      setPasswordError('Slaptazodziai nesutampa');
       return false;
     }
 
-    // Tikrianme ar slaptažodis yra bent 6 simbolių ilgio
+    // Tikriname ar slaptazodis yra bent 6 simboliu ilgio
     if (password.length < 6) {
-      setPasswordError('Slaptažodis yra per trumpas!');
+      setPasswordError('Slaptazodis yra per trumpas');
       return false;
     }
 
     return true;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (validateForm()) {
@@ -39,13 +39,13 @@ export const Register = () => {
   };
 
   return (
-    <div className="register-contaioner">
+    <div className="register-container">
       <div className="register-form-wrapper">
         <h2>Registracija</h2>
 
         <form onSubmit={handleSubmit} className="register-form">
           <div className="form-group">
-            <label htmlFor="name">Pilnas vardas ir pavardė</label>
+            <label htmlFor="name">Pilnas Vardas ir Pavarde</label>
             <input
               type="text"
               id="name"
@@ -78,7 +78,7 @@ export const Register = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="name">Confim Password</label>
+            <label htmlFor="name">Confirm Password</label>
             <input
               type="password"
               id="confirmPassword"
@@ -95,7 +95,7 @@ export const Register = () => {
         </form>
 
         <div className="login-link">
-          Ar jau turite paskyrą? <Link to="/login">Prisijunkite</Link>
+          Ar jau turite paskyra? <Link to="/login">Prisijunkite</Link>
         </div>
       </div>
     </div>

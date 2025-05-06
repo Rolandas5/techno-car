@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { CarCard } from '../CarCard/CarCard';
-import { Car } from '../types/car';
+import { Car } from '../types/CarTypes';
 import './car-list.css';
 import { API_URL } from '../../constants/global';
 import axios from 'axios';

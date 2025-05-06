@@ -1,43 +1,54 @@
-// Server.js visada yra pagrindinis failas, kuris paleidžia serverį ir nukreipia maršrutus į atitinkamus failus
+// server.js - visada yra pagrindinis failas, kuris paleidzia serveri ir nukreipia marsrutus i atitinkamus failus
 const express = require('express');
+
+// Cors leidzia siusti uzklausas is kito domeno:
 const cors = require('cors');
+
+// naudosime env:
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const carRoutes = require('./routes/carRoutes'); // importuojame automobilių maršrutus
-const reviewRoutes = require('./routes/reviewRoutes'); // importuojame atsiliepimų maršrutus
-const authRoutes = require('./routes/authRoutes'); // importuojame autentifikacijos maršrutus
 
-// Įkeliame aplinkos kintamuosius iš .env failo
+// susiimportuoju routes is kitu failu:
+const carRoutes = require('./routes/carRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
+const authRoutes = require('./routes/authRoutes');
+const reservationRoutes = require('./routes/reservationRoutes');
+
+// .env failas nuo zodzio environment - aplinka. tai tiesiog paprastas tekstinis failas, kuriame saugome kintamuosius kuriu nenorime kad
+// kiti turetu. Dazniausiai tai yra slapta informacija, duomenu bazes prisijungimai, PORT ar kokie nors slaptazodziai.
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
-
 const app = express();
-// Cors - leidžia siusti API užklausas iš kito domeno pvz. localhost:3000 -> localhost:5173
-// Cors leidžia naršyklėms siųsti API užklausas iš (kito) skirtingų domenų, pvz. localhost:3000 -> localhost:5173
-// Tai leidžia mums siųsti užklausas iš mūsų front-end aplikacijos (pvz. React) į mūsų back-end serverį (Express).
+
+// Cors leidzia siusti uzklausas is kito domeno, pvz: localhost: 3000 (backend) --> localhost:5173 (frontend)
 app.use(cors());
 app.use(express.json());
 
-// Nukreipiame visas API užklausas, kurios prasideda /api/cars į carRoutes failą, kuris toliau tvarkys užklausas susijusias su automobiliais.
+// Nukreipiam visas API uzklausas, kurios prasideda /api/cars i carRoutes faila,
+// kuris toliau tvarkys uzklausas, susijusias su automobiliais:
 app.use('/api/cars', carRoutes);
+
+// Reviews API:
 app.use('/api/reviews', reviewRoutes);
-// app.use('/api/reviews', reviewRoutes); // Nukreipiame visas API užklausas, kurios prasideda /api/reviews į reviewRoutes failą, kuris toliau tvarkys užklausas susijusias su atsiliepimais.
-app.use('/api/auth', authRoutes); // Nukreipiame visas API užklausas, kurios prasideda /api/auth į authRoutes failą, kuris toliau tvarkys užklausas susijusias su autentifikacija.
 
+// For users logging in:
+app.use('/api/auth', authRoutes);
 
+app.use('/api/reservations', reservationRoutes);
 
-// Prisijungiame prie MongoDB naudojant mongoose
+// pasakome kad trauktu info is env failo:
+const PORT = process.env.PORT || 3001;
+
+// naudosime mongo db:
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log('Prisijungta prie MongoDB (techno-car)');
+    console.log('Connected to MongoDB');
   })
-  .catch((err) => {
-    console.error('Klaida jungiantis:', error);
+  .catch((error) => {
+    console.log('Error connecting to MongoDB', error);
   });
 
-// Paleidžiame serverį
 app.listen(PORT, () => {
-  console.log(`Serveris veikia: http://localhost:${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

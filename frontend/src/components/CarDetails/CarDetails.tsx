@@ -1,15 +1,20 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { NotFound } from '../NotFound/NotFound';
 import axios from 'axios';
-import { Car } from '../types/car';
+import { Car } from '../types/CarTypes';
 import { API_URL } from '../../constants/global';
 import './car-details.css';
+import { AuthContext } from '../../context/AuthContext';
+import { ReservationModal } from '../ReservationModal/ReservationModal';
 
 export const CarDetails = () => {
   const navigate = useNavigate();
   // useParams - yra HOOKas, kuris leidžia gauti parametrus iš URL pvz id => /cars/:id
   const { id: carId } = useParams();
+  const { user } = useContext(AuthContext);
+  const [isReservationModalVisible, setIsReservationModalVisible] =
+    useState(false);
 
   const [car, setCar] = useState<Car | null>(null);
   // useState - yra HOOKas, kuris leidžia stebėti ir atnaujinti komponento būseną
@@ -47,6 +52,15 @@ export const CarDetails = () => {
   if (!car) {
     return <p>Kraunama...</p>;
   }
+
+  const handleReserveClick = () => {
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+
+    setIsReservationModalVisible(true);
+  };
 
   return (
     <div className="car-detail">
@@ -92,7 +106,12 @@ export const CarDetails = () => {
             </div>
           </div>
           <div className="car-actions">
-            <button className="button button-primary">Rezervuoti</button>
+            <button
+              className="button button-primary"
+              onClick={handleReserveClick}
+            >
+              Rezervuoti
+            </button>
             <button
               className="button button-secondary"
               onClick={handleBackClick}
@@ -102,6 +121,13 @@ export const CarDetails = () => {
           </div>
         </div>
       </div>
+      {isReservationModalVisible && car && (
+        <ReservationModal
+          onModalClose={() => setIsReservationModalVisible(false)}
+          // onSuccess={() => setIsReservationModalVisible(false)}
+          car={car}
+        />
+      )}
     </div>
   );
 };

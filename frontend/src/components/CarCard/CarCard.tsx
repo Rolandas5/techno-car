@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Car } from '../types/car';
+import { Car } from '../types/CarTypes';
 import './car-card.css';
 
 interface CarCardProps {

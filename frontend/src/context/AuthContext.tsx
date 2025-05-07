@@ -4,13 +4,7 @@ import { createContext, useState, useEffect, ReactNode } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../constants/global';
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-}
+import { User } from '../components/types/review';
 
 interface AuthContextType {
   user: User | null;

@@ -24,14 +24,19 @@ exports.getCarById = async (req, res) => {
   }
 };
 
-// Sukurti naują automobilį
+// ADMIN ONLY Sukurti naują automobilį
 exports.createCar = async (req, res) => {
   try {
+    if (req.user.role !== 'admin') {
+      return res
+        .status(403)
+        .json({ error: 'Neturite teisių sukurti automobilio' });
+    }
     const newCar = new Car(req.body);
     await newCar.save();
     res.status(201).json({ message: 'Automobilis sukurtas sėkmingai' });
   } catch (error) {
-    res.status(500).json({ error: 'Klaida kuriant automobilį' });
+    res.status(500).json({ message: 'Klaida kuriant automobilį' });
   }
 };
 

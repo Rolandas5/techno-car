@@ -6,17 +6,22 @@ import { AccountInfo } from './components/AccountInfo';
 import { ReservationList } from './components/ReservationList';
 import { Reservation } from '../types/review';
 import { API_URL } from '../../constants/global';
+import { AdminCarsTab } from './components/AdminCarsTab';
 
 // 0. Susikuriame API Interface
 // 1. Pasifetchinam rezervacijas panaudojam useEffect
 // 2. Perduodam rezervacijas i ReservationList komponenta
 // 3. ReservationList komponentas atvaizduoja rezervacijas
 
+type Tab = 'user' | 'admin-cars' | 'admin-reservations';
+
 export const Dashboard = () => {
   const { user, access_token } = useContext(AuthContext);
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleteLoading, setDeleteLoading] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<Tab>('user'); // Default to 'user' tab
+  const isAdmin = user?.role === 'admin';
 
   const fetchReservations = async () => {
     try {
@@ -77,15 +82,51 @@ export const Dashboard = () => {
         <h1>Dashboard</h1>
         <p className="welcome-text">Welcome back, {user?.name}!</p>
       </div>
+      {isAdmin && (
+        <div className="tabs">
+          <button
+            className={`tab-button ${activeTab === 'user' ? 'active' : ''}`}
+            onClick={() => setActiveTab('user')}
+          >
+            My Reservations
+          </button>
+          <button
+            className={`tab-button ${
+              activeTab === 'admin-cars' ? 'active' : ''
+            }`}
+            onClick={() => setActiveTab('admin-cars')}
+          >
+            Manage Cars
+          </button>
+          <button
+            className={`tab-button ${
+              activeTab === 'admin-reservations' ? 'active' : ''
+            }`}
+            onClick={() => setActiveTab('admin-reservations')}
+          >
+            All Reservations
+          </button>
+        </div>
+      )}
 
       <div className="dashboard-content">
-        <AccountInfo user={user} />
-        <ReservationList
-          reservations={reservations}
-          loading={loading}
-          deleteLoading={deleteLoading}
-          onDelete={handleDelete}
-        />
+        {activeTab === 'user' && (
+          <>
+            <AccountInfo user={user} />
+            <ReservationList
+              reservations={reservations}
+              loading={loading}
+              deleteLoading={deleteLoading}
+              onDelete={handleDelete}
+            />
+          </>
+        )}
+        {activeTab === 'admin-cars' && <AdminCarsTab />}
+        {activeTab === 'admin-reservations' && (
+          <>
+            <div>Admin reservations</div>
+          </>
+        )}
       </div>
     </div>
   );

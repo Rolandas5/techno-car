@@ -6,7 +6,6 @@ import { AuthContext } from '../../context/AuthContext';
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const { login } = useContext(AuthContext);
 
   const handleSubmit = async (e: React.FormEvent) => {

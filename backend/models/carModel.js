@@ -4,39 +4,57 @@ const mongoose = require('mongoose');
 // Sukuriame automobilio schemą
 const carSchema = new mongoose.Schema(
   {
-    brand: {
+    make: {
       type: String,
-      required: true, // pvz. „Toyota“
+      required: true,
+      trim: true,
     },
     model: {
       type: String,
-      required: true, // pvz. „Corolla“
+      required: true,
+      trim: true,
     },
-    year: {
-      type: Number,
-      required: true, // pvz. 2020
+    description: {
+      type: String,
+      required: true,
+      trim: true,
     },
     price: {
       type: Number,
-      required: true, // pvz. 15000
+      required: true,
+    },
+    features: {
+      type: [String],
+      required: true,
+    },
+    transmission: {
+      type: String,
+      required: true,
+      trim: true,
     },
     fuelType: {
       type: String,
-      required: false, // pvz. „Benzinas“, neprivaloma
+      required: true,
+      trim: true,
     },
-    mileage: {
+    seats: {
       type: Number,
-      required: false, // pvz. 120000
+      required: true,
+    },
+    year: {
+      type: Number,
+      required: true,
     },
     image: {
       type: String,
-      required: false, // paveikslėlio URL (jei naudosite)
+      required: true,
+      trim: true,
     },
   },
   {
-    timestamps: true, // prideda createdAt ir updatedAt automatiškai
+    timestamps: true,
+    collection: 'cars',
   }
 );
 
-// Eksportuojame modelį
 module.exports = mongoose.model('Car', carSchema);

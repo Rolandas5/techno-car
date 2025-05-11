@@ -104,3 +104,14 @@
 .login-link a:hover {
   text-decoration: underline;
 }
+
+.site-footer {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.site-footer {
+  font-size: 1rem;
+}

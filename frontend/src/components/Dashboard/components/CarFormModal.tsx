@@ -1,12 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Car } from '../../types/CarTypes';
 
 interface CarFormModalProps {
   onModalClose: () => void;
   onSubmit: (formData: Car) => void;
+  carToEdit?: Car | null;
 }
 
-export const CarFormModal = ({ onModalClose, onSubmit }: CarFormModalProps) => {
+export const CarFormModal = ({
+  onModalClose,
+  onSubmit,
+  carToEdit,
+}: CarFormModalProps) => {
   const [make, setMake] = useState('');
   const [model, setModel] = useState('');
   const [description, setDescription] = useState('');
@@ -41,13 +46,28 @@ export const CarFormModal = ({ onModalClose, onSubmit }: CarFormModalProps) => {
     onSubmit(formData);
   };
 
+  useEffect(() => {
+    if (carToEdit) {
+      setMake(carToEdit.make);
+      setModel(carToEdit.model);
+      setDescription(carToEdit.description);
+      setPrice(carToEdit.price);
+      setFeatures(carToEdit.features);
+      setTransmission(carToEdit.transmission);
+      setFuelType(carToEdit.fuelType);
+      setSeats(carToEdit.seats);
+      setYear(carToEdit.year);
+      setImageUrl(carToEdit.image);
+    }
+  }, [carToEdit]);
+
   return (
     <div className="modal">
       <div className="modal-content">
         <span className="close" onClick={onModalClose}>
           x
         </span>
-        <h2>Add New Car</h2>
+        <h2>{carToEdit ? 'Edit Car Info' : 'Add New Car'}</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Make:</label>
@@ -144,7 +164,7 @@ export const CarFormModal = ({ onModalClose, onSubmit }: CarFormModalProps) => {
             />
           </div>
           <button type="submit" className="btn">
-            Add Car
+            {carToEdit ? 'Save' : 'Add Car'}
           </button>
         </form>
       </div>

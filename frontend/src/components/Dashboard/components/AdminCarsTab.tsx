@@ -8,6 +8,9 @@ export const AdminCarsTab = () => {
   const [cars, setCars] = useState<Car[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCar, setSelectedCar] = useState<Car | null>(null);
+  const [carToDelete, setCarToDelete] = useState<Car | null>(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const fetchCars = async () => {
     try {
@@ -28,18 +31,60 @@ export const AdminCarsTab = () => {
     };
 
     try {
-      await axios.post(`${API_URL}/cars`, formData, config);
+      if (selectedCar) {
+        await axios.put(`${API_URL}/cars/${selectedCar._id}`, formData, config); // redagavimas
+      } else {
+        await axios.post(`${API_URL}/cars`, formData, config); // kūrimas
+      }
+
       setIsModalOpen(false);
+      setSelectedCar(null);
       fetchCars();
     } catch (error) {
       console.log(error);
-      alert('Failed to create car');
+      alert('Failed to save car');
     }
   };
 
   useEffect(() => {
     fetchCars();
   }, []);
+
+  const handleDelete = async (carId: string) => {
+    if (!confirm('Ar tikrai norite ištrinti šį automobilį?')) return;
+
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+      };
+
+      await axios.delete(`${API_URL}/cars/${carId}`, config);
+      fetchCars(); // atnaujina sąrašą po trynimo
+    } catch (error) {
+      console.error('Klaida trinant automobilį:', error);
+      alert('Nepavyko ištrinti automobilio');
+    }
+  };
+
+  const confirmDelete = async () => {
+    if (!carToDelete) return;
+    try {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
+        },
+      };
+      await axios.delete(`${API_URL}/cars/${carToDelete._id}`, config);
+      setShowDeleteModal(false);
+      setCarToDelete(null);
+      fetchCars();
+    } catch (error) {
+      console.error('Klaida trinant automobilį:', error);
+      alert('Nepavyko ištrinti automobilio');
+    }
+  };
 
   return (
     <div className="admin-tab">
@@ -74,8 +119,25 @@ export const AdminCarsTab = () => {
                 <td>{car.model}</td>
                 <td>{car.year}</td>
                 <td>{car.price}€</td>
-                <td>
-                  <button className="btn-edit">Edit</button>
+                <td className="action-buttons">
+                  <button
+                    className="btn-edit"
+                    onClick={() => {
+                      setSelectedCar(car);
+                      setIsModalOpen(true);
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="btn-delete"
+                    onClick={() => {
+                      setCarToDelete(car);
+                      setShowDeleteModal(true);
+                    }}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
@@ -83,10 +145,36 @@ export const AdminCarsTab = () => {
         </table>
       )}
 
+      {showDeleteModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Ar tikrai norite ištrinti šį automobilį?</h3>
+            <div className="modal-actions">
+              <button className="btn btn-danger" onClick={confirmDelete}>
+                Taip
+              </button>
+              <button
+                className="btn"
+                onClick={() => {
+                  setShowDeleteModal(false);
+                  setCarToDelete(null);
+                }}
+              >
+                Ne
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {isModalOpen && (
         <CarFormModal
-          onModalClose={() => setIsModalOpen(false)}
+          onModalClose={() => {
+            setIsModalOpen(false);
+            setSelectedCar(null);
+          }}
           onSubmit={handleCarSubmit}
+          carToEdit={selectedCar}
         />
       )}
     </div>

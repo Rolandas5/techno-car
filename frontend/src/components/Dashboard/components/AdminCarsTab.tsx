@@ -32,7 +32,11 @@ export const AdminCarsTab = () => {
 
     try {
       if (selectedCar) {
-        await axios.put(`${API_URL}/cars/${selectedCar._id}`, formData, config); // redagavimas
+        await axios.patch(
+          `${API_URL}/cars/${selectedCar._id}`,
+          formData,
+          config
+        ); // redagavimas
       } else {
         await axios.post(`${API_URL}/cars`, formData, config); // kūrimas
       }
@@ -50,24 +54,6 @@ export const AdminCarsTab = () => {
     fetchCars();
   }, []);
 
-  const handleDelete = async (carId: string) => {
-    if (!confirm('Ar tikrai norite ištrinti šį automobilį?')) return;
-
-    try {
-      const config = {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-        },
-      };
-
-      await axios.delete(`${API_URL}/cars/${carId}`, config);
-      fetchCars(); // atnaujina sąrašą po trynimo
-    } catch (error) {
-      console.error('Klaida trinant automobilį:', error);
-      alert('Nepavyko ištrinti automobilio');
-    }
-  };
-
   const confirmDelete = async () => {
     if (!carToDelete) return;
     try {
@@ -84,6 +70,11 @@ export const AdminCarsTab = () => {
       console.error('Klaida trinant automobilį:', error);
       alert('Nepavyko ištrinti automobilio');
     }
+  };
+
+  const handleEditCar = (car: Car) => {
+    setSelectedCar(car);
+    setIsModalOpen(true);
   };
 
   return (
@@ -119,25 +110,27 @@ export const AdminCarsTab = () => {
                 <td>{car.model}</td>
                 <td>{car.year}</td>
                 <td>{car.price}€</td>
-                <td className="action-buttons">
-                  <button
-                    className="btn-edit"
-                    onClick={() => {
-                      setSelectedCar(car);
-                      setIsModalOpen(true);
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="btn-delete"
-                    onClick={() => {
-                      setCarToDelete(car);
-                      setShowDeleteModal(true);
-                    }}
-                  >
-                    Delete
-                  </button>
+                <td>
+                  <div className="action-buttons">
+                    <button
+                      className="btn-edit"
+                      onClick={() => {
+                        handleEditCar(car);
+                        setIsModalOpen(true);
+                      }}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="btn-delete"
+                      onClick={() => {
+                        setCarToDelete(car);
+                        setShowDeleteModal(true);
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}

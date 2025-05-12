@@ -164,7 +164,7 @@ export const CarFormModal = ({
             />
           </div>
           <button type="submit" className="btn">
-            {carToEdit ? 'Save' : 'Add Car'}
+            {carToEdit ? 'Update Car' : 'Add Car'}
           </button>
         </form>
       </div>

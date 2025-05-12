@@ -15,10 +15,10 @@ const authMiddleware = async (req, res, next) => {
     // 3. Verify token
     console.log('[JWT_SECRET]', process.env.JWT_SECRET); // ← GALI PRIDĖTI IR ČIA
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
+    console.log('[DECODED]', decoded); // ← čia!
     // 4. Get user data from database
     const user = await User.findById(decoded.userId).select('-password');
-
+    console.log('[USER FROM DB]', user); // ← čia!
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
@@ -36,6 +36,5 @@ const authMiddleware = async (req, res, next) => {
     res.status(500).json({ error: 'Server error' });
   }
 };
-
 
 module.exports = authMiddleware;

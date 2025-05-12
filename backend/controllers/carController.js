@@ -24,9 +24,10 @@ exports.getCarById = async (req, res) => {
   }
 };
 
-// ADMIN ONLY Sukurti naują automobilį
+// ADMIN ONLY Sukuria naują automobilį
 exports.createCar = async (req, res) => {
   try {
+    // authMiddleware atiduoda mums users objekta
     if (req.user.role !== 'admin') {
       return res
         .status(403)
@@ -40,16 +41,18 @@ exports.createCar = async (req, res) => {
   }
 };
 
-// Atnaujinti automobilį pagal ID
+// Patch Atnaujinti automobilį pagal ID
 exports.updateCar = async (req, res) => {
   try {
-    const updatedCar = await Car.findByIdAndUpdate(req.params.id, req.body, {
+    const carId = req.params.id;
+    const updateCar = req.body;
+    const newCar = await Car.findByIdAndUpdate(carId, updateCar, {
       new: true,
     });
-    if (!updatedCar) {
+    if (!newCar) {
       return res.status(404).json({ error: 'Automobilis nerastas' });
     }
-    res.status(200).json({ message: 'Automobilis atnaujintas', updatedCar });
+    res.status(200).json({ message: 'Automobilis atnaujintas', newCar });
   } catch (error) {
     res.status(500).json({ error: 'Klaida atnaujinant automobilį' });
   }
@@ -58,7 +61,13 @@ exports.updateCar = async (req, res) => {
 // Ištrinti automobilį pagal ID
 exports.deleteCar = async (req, res) => {
   try {
-    const deletedCar = await Car.findByIdAndDelete(req.params.id);
+    if (req.user.role !== 'admin') {
+      return res
+        .status(403)
+        .json({ error: 'Neturite teisių ištrinti automobilio' });
+    }
+    const carId = req.params.id;
+    const deletedCar = await Car.findByIdAndDelete(carId);
     if (!deletedCar) {
       return res.status(404).json({ error: 'Automobilis nerastas' });
     }

@@ -87,3 +87,30 @@ exports.deleteReservation = async (req, res) => {
     res.status(500).json({ error: 'Failed to delete reservation' });
   }
 };
+
+// AMIN ONLY
+exports.getAllReservations = async (req, res) => {
+  try {
+    if (req.user.role !== 'admin') {
+      return res
+        .status(403)
+        .json({ error: 'Not authorized. Admin access required' });
+    }
+    const allReservations = await Reservation.find()
+      .populate('carId', 'make model image')
+      .populate('userId', 'name email')
+      .lean();
+
+    const formattedReservations = allReservations.map((reservation) => ({
+      ...reservation,
+      car: reservation.carId,
+      carId: reservation.carId._id,
+      user: reservation.userId,
+      userId: reservation.userId._id,
+    }));
+
+    res.status(200).json(formattedReservations);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to get all reservations' });
+  }
+};

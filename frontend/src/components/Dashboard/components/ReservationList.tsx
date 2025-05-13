@@ -1,5 +1,5 @@
 import { ReservationItem } from './ReservationItem';
-import { Reservation } from '../../types/review';
+import { Reservation } from '../../types/ReviewTypes';
 
 interface ReservationListProps {
   reservations: Reservation[];

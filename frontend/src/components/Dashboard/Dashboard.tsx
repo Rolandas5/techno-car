@@ -4,9 +4,10 @@ import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import { AccountInfo } from './components/AccountInfo';
 import { ReservationList } from './components/ReservationList';
-import { Reservation } from '../types/review';
+import { Reservation } from '../types/ReservationTypes';
 import { API_URL } from '../../constants/global';
 import { AdminCarsTab } from './components/AdminCarsTab';
+import { AdminReservationsTab } from './components/AdminReservationsTab';
 
 // 0. Susikuriame API Interface
 // 1. Pasifetchinam rezervacijas panaudojam useEffect
@@ -122,11 +123,7 @@ export const Dashboard = () => {
           </>
         )}
         {activeTab === 'admin-cars' && <AdminCarsTab />}
-        {activeTab === 'admin-reservations' && (
-          <>
-            <div>Admin reservations</div>
-          </>
-        )}
+        {activeTab === 'admin-reservations' && <AdminReservationsTab />}
       </div>
     </div>
   );

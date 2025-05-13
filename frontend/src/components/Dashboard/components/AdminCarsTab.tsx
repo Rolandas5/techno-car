@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../../constants/global';
 import { Car } from '../../types/CarTypes';
 import { CarFormModal } from './CarFormModal';
+import { AuthContext } from '../../../context/AuthContext';
 
 export const AdminCarsTab = () => {
+  const { access_token } = useContext(AuthContext);
   const [cars, setCars] = useState<Car[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -12,6 +14,7 @@ export const AdminCarsTab = () => {
   const [carToDelete, setCarToDelete] = useState<Car | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+  // GET request to fetch cars
   const fetchCars = async () => {
     try {
       const response = await axios.get(`${API_URL}/cars`);
@@ -24,6 +27,10 @@ export const AdminCarsTab = () => {
   };
 
   const handleCarSubmit = async (formData: Car) => {
+    if (!access_token) {
+      alert('You are not authorized to perform this action.');
+      return;
+    }
     const config = {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('access_token')}`,
@@ -38,6 +45,7 @@ export const AdminCarsTab = () => {
           config
         ); // redagavimas
       } else {
+        // POST request to create a new car
         await axios.post(`${API_URL}/cars`, formData, config); // kūrimas
       }
 
@@ -50,9 +58,10 @@ export const AdminCarsTab = () => {
     }
   };
 
-  useEffect(() => {
-    fetchCars();
-  }, []);
+  const handleEditCar = (car: Car) => {
+    setSelectedCar(car);
+    setIsModalOpen(true);
+  };
 
   const confirmDelete = async () => {
     if (!carToDelete) return;
@@ -72,10 +81,9 @@ export const AdminCarsTab = () => {
     }
   };
 
-  const handleEditCar = (car: Car) => {
-    setSelectedCar(car);
-    setIsModalOpen(true);
-  };
+  useEffect(() => {
+    fetchCars();
+  }, []);
 
   return (
     <div className="admin-tab">

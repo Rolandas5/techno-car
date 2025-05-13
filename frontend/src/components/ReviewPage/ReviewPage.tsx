@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Review } from '../types/review';
+import { Review } from '../types/ReviewTypes';
 import { ReviewCard } from '../ReviewCard/ReviewCard';
 import './review-page.css';
 import { API_URL } from '../../constants/global';

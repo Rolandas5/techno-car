@@ -1,5 +1,5 @@
 import React from 'react';
-import { Review } from '../types/review';
+import { Review } from '../types/ReviewTypes';
 import './review-card.css';
 import { useState } from 'react';
 

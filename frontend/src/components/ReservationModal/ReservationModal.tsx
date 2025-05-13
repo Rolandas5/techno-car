@@ -1,5 +1,5 @@
 import './reservation-modal.css';
-import { Car } from '../../types/CarTypes';
+import { Car } from '../types/CarTypes';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../constants/global';

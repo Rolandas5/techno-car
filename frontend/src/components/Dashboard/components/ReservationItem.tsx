@@ -1,4 +1,4 @@
-import { Reservation } from '../../types/review';
+import { Reservation } from '../../types/ReservationTypes';
 
 interface ReservationItemProps {
   reservation: Reservation;
@@ -11,16 +11,10 @@ export const ReservationItem = ({
   onDelete,
   isDeleting,
 }: ReservationItemProps) => {
-//   const formatDate = (dateString: string) => {
-//     const date = new Date(dateString);
-//     return date.toLocaleDateString();
-//   };
-const formatDate = (iso: string) =>
-    new Date(iso).toLocaleDateString('lt-LT', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString();
+  };
 
   return (
     <div className="reservation-item">
@@ -60,5 +54,3 @@ const formatDate = (iso: string) =>
     </div>
   );
 };
-
-

@@ -8,13 +8,14 @@ import { Reservation } from '../types/ReservationTypes';
 import { API_URL } from '../../constants/global';
 import { AdminCarsTab } from './components/AdminCarsTab';
 import { AdminReservationsTab } from './components/AdminReservationsTab';
+import { UserManagement } from './components/UserManagement';
 
 // 0. Susikuriame API Interface
 // 1. Pasifetchinam rezervacijas panaudojam useEffect
 // 2. Perduodam rezervacijas i ReservationList komponenta
 // 3. ReservationList komponentas atvaizduoja rezervacijas
 
-type Tab = 'user' | 'admin-cars' | 'admin-reservations';
+type Tab = 'user' | 'admin-cars' | 'admin-reservations' | 'admin-users';
 
 export const Dashboard = () => {
   const { user, access_token } = useContext(AuthContext);
@@ -107,6 +108,14 @@ export const Dashboard = () => {
           >
             All Reservations
           </button>
+          <button
+            className={`tab-button ${
+              activeTab === 'admin-users' ? 'active' : ''
+            }`}
+            onClick={() => setActiveTab('admin-users')}
+          >
+            All User
+          </button>
         </div>
       )}
 
@@ -124,6 +133,7 @@ export const Dashboard = () => {
         )}
         {activeTab === 'admin-cars' && <AdminCarsTab />}
         {activeTab === 'admin-reservations' && <AdminReservationsTab />}
+        {activeTab === 'admin-users' && <UserManagement />}
       </div>
     </div>
   );

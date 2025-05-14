@@ -4,13 +4,13 @@ import { Car } from '../../types/CarTypes';
 interface CarFormModalProps {
   onModalClose: () => void;
   onSubmit: (formData: Car) => void;
-  carToEdit?: Car | null;
+  selectedCar: Car | null;
 }
 
 export const CarFormModal = ({
   onModalClose,
   onSubmit,
-  carToEdit,
+  selectedCar,
 }: CarFormModalProps) => {
   const [make, setMake] = useState('');
   const [model, setModel] = useState('');
@@ -47,19 +47,19 @@ export const CarFormModal = ({
   };
 
   useEffect(() => {
-    if (carToEdit) {
-      setMake(carToEdit.make);
-      setModel(carToEdit.model);
-      setDescription(carToEdit.description);
-      setPrice(carToEdit.price);
-      setFeatures(carToEdit.features);
-      setTransmission(carToEdit.transmission);
-      setFuelType(carToEdit.fuelType);
-      setSeats(carToEdit.seats);
-      setYear(carToEdit.year);
-      setImageUrl(carToEdit.image);
+    if (selectedCar) {
+      setMake(selectedCar.make);
+      setModel(selectedCar.model);
+      setDescription(selectedCar.description);
+      setPrice(selectedCar.price);
+      setFeatures(selectedCar.features);
+      setTransmission(selectedCar.transmission);
+      setFuelType(selectedCar.fuelType);
+      setSeats(selectedCar.seats);
+      setYear(selectedCar.year);
+      setImageUrl(selectedCar.image);
     }
-  }, [carToEdit]);
+  }, [selectedCar]);
 
   return (
     <div className="modal">
@@ -67,7 +67,7 @@ export const CarFormModal = ({
         <span className="close" onClick={onModalClose}>
           x
         </span>
-        <h2>{carToEdit ? 'Edit Car Info' : 'Add New Car'}</h2>
+        <h2>{selectedCar ? 'Edit Car Info' : 'Add New Car'}</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Make:</label>
@@ -164,7 +164,7 @@ export const CarFormModal = ({
             />
           </div>
           <button type="submit" className="btn">
-            {carToEdit ? 'Update Car' : 'Add Car'}
+            {selectedCar ? 'Update Car' : 'Add Car'}
           </button>
         </form>
       </div>

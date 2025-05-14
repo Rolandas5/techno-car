@@ -40,28 +40,36 @@ export const AdminReservationsTab = () => {
   return (
     <div className="admin-tab">
       <h2>All Reservations</h2>
-      <table className="reservation-table">
-        <thead>
-          <tr>
-            <th>User</th>
-            <th>Car</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Total Price</th>
-            <th>Booking Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>tomas@tomas.com</td>
-            <td>BMW 530</td>
-            <td>2025-01-01</td>
-            <td>2025-01-10</td>
-            <td>1000</td>
-            <td>2024-01-10</td>
-          </tr>
-        </tbody>
-      </table>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <table className="reservation-table">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th>Car</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Total Price</th>
+              <th>Booking Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {reservations.map((reservation) => (
+              <tr key={reservation._id}>
+                <td>{reservation.user?.email || reservation.userId}</td>
+                <td>
+                  {reservation.car?.make} {reservation.car?.model}
+                </td>
+                <td>{new Date(reservation.startDate).toLocaleDateString()}</td>
+                <td>{new Date(reservation.endDate).toLocaleDateString()}</td>
+                <td>{reservation.totalPrice} €</td>
+                <td>{new Date(reservation.createdAt).toLocaleDateString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

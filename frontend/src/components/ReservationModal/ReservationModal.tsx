@@ -48,6 +48,7 @@ export const ReservationModal: React.FC<ReservationModalProps> = ({
           startDate: start.toISOString(),
           endDate: end.toISOString(),
           carId: car._id,
+          totalPrice,
         },
         config
       );

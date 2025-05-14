@@ -1,7 +1,7 @@
 const Reservation = require('../models/reservationModel');
 const Car = require('../models/carModel');
 
-// sukuriam rezervacija
+// sukuriame rezervacija
 exports.createReservation = async (req, res) => {
   try {
     const { carId, totalDays, startDate, endDate } = req.body;
@@ -21,14 +21,12 @@ exports.createReservation = async (req, res) => {
     // 3. Patikrinam ar automobilis yra laisvas pasirinktomis dienomis
     const isCarAvailable = await Reservation.findOne({
       carId,
-      // $expr - leidzia duoti salygas kurios yra sudetingesnes nei paprastos
-      $expr: {
-        // $or - leidzia patikrini ar tokia ar kitokia diena yra laisva
-        $or: [
-          { $gte: ['$startDate', startDate] },
-          { $gte: ['$endDate', endDate] },
-        ],
-      },
+      $or: [
+        {
+          startDate: { $lte: endDate },
+          endDate: { $gte: startDate },
+        },
+      ],
     });
 
     if (isCarAvailable) {
@@ -40,7 +38,7 @@ exports.createReservation = async (req, res) => {
     // 4. Paskaiciuojam kiek kainuos rezervacija
     const totalPrice = car.price * totalDays;
 
-    // 5. Sukuriam rezervacija
+    // 5. Sukuriame rezervacija
     const reservation = new Reservation({
       carId,
       userId,
@@ -80,8 +78,18 @@ exports.getUserReservations = async (req, res) => {
 // Deleting reservation
 exports.deleteReservation = async (req, res) => {
   try {
+    //  SVARBU: req.params.id parasytas be ._id, nes traukiame is url, ne is body (mongodb)
     const reservationId = req.params.id;
-    await Reservation.findByIdAndDelete(reservationId);
+    const deletedReservation = await Reservation.findByIdAndDelete(
+      reservationId
+    );
+
+    // galima prideti IF ELSE, pvz negali istrint jei jau prasidejo rezervacijos diena ar jei jau yra apmoketa
+
+    if (!deletedReservation) {
+      return res.status(404).json({ error: 'Reservation not found' });
+    }
+
     res.status(200).json({ message: 'Reservation deleted successfully' });
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete reservation' });

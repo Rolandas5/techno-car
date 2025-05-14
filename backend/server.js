@@ -13,6 +13,7 @@ const carRoutes = require('./routes/carRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const authRoutes = require('./routes/authRoutes');
 const reservationRoutes = require('./routes/reservationRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 // .env failas nuo zodzio environment - aplinka. tai tiesiog paprastas tekstinis failas, kuriame saugome kintamuosius kuriu nenorime kad
 // kiti turetu. Dazniausiai tai yra slapta informacija, duomenu bazes prisijungimai, PORT ar kokie nors slaptazodziai.
@@ -35,6 +36,8 @@ app.use('/api/reviews', reviewRoutes);
 app.use('/api/auth', authRoutes);
 
 app.use('/api/reservations', reservationRoutes);
+
+app.use('/api/users', userRoutes);
 
 // pasakome kad trauktu info is env failo:
 const PORT = process.env.PORT || 3001;

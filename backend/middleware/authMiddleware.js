@@ -1,29 +1,33 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 
+// be authMiddleware negaletume patikrinti ar useris yra: a)prisijunges, b)admin
+
+// cia atliekame MIDDLEWARE'o veiksma (kas ivyksta tarp request ir response)
+// - ar useris yra authentifikuotas ar ne
+// (kai yra paduodamas Bearer token)
+
+// next - tai tik Middleware budingas dalykas:
 const authMiddleware = async (req, res, next) => {
   try {
-    // 1. Get token from request header
+    // 1. Issitraukiame token is header'io:
     const token = req.header('Authorization')?.replace('Bearer ', '');
-    console.log('[TOKEN]', token); // ← PERKELTA ČIA
-
-    // 2. Check if token exists
+    // 2. Pasiziurim ar token egzistuoja:
     if (!token) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
-
-    // 3. Verify token
-    console.log('[JWT_SECRET]', process.env.JWT_SECRET); // ← GALI PRIDĖTI IR ČIA
+    // 3. Tikriname ar tokenas yra validus (ar nepasibaiges, etc):
+    // Naudosime JWT_SECRET:
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log('[DECODED]', decoded); // ← čia!
-    // 4. Get user data from database
+    // 4. Issitraukiame userio duomenis is duomenu bazes (isskyrus pwd):
+
     const user = await User.findById(decoded.userId).select('-password');
-    console.log('[USER FROM DB]', user); // ← čia!
+
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // 5. Add user to request object
+    // 5. Pridedam useri prie request objekto:
     req.user = user;
     next();
   } catch (error) {

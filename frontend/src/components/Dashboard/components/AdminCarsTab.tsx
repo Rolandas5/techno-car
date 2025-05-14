@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { API_URL } from '../../../constants/global';
 import { Car } from '../../types/CarTypes';
-import { CarFormModal } from './CarFormModal';
+import { CarFormModal } from '../components/CarFormModal';
 import { AuthContext } from '../../../context/AuthContext';
 
 export const AdminCarsTab = () => {
@@ -175,7 +175,7 @@ export const AdminCarsTab = () => {
             setSelectedCar(null);
           }}
           onSubmit={handleCarSubmit}
-          carToEdit={selectedCar}
+          selectedCar={selectedCar}
         />
       )}
     </div>

@@ -1,4 +1,4 @@
-import { User } from '../../types/ReviewTypes';
+import { User } from '../../types/UserTypes';
 
 interface AccountInfoProps {
   user: User | null;

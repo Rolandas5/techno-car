@@ -11,6 +11,12 @@ export interface Reservation {
     _id: string;
     make: string;
     model: string;
+    seats: number;
     image: string;
+  };
+  user: {
+    _id: string;
+    name: string;
+    email: string;
   };
 }

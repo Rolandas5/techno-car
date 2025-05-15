@@ -1,4 +1,4 @@
-export interface Reservation {
+export interface AllReservations {
   _id: string;
   carId: string;
   userId: string;
@@ -13,5 +13,10 @@ export interface Reservation {
     model: string;
     seats: number;
     image: string;
+  };
+  user: {
+    _id: string;
+    name: string;
+    email: string;
   };
 }

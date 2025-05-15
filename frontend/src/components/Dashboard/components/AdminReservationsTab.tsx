@@ -3,37 +3,38 @@ import { API_URL } from '../../../constants/global';
 import { useState, useEffect } from 'react';
 import { AuthContext } from '../../../context/AuthContext';
 import { useContext } from 'react';
-import { Reservation } from '../../types/ReservationTypes';
+import { AllReservations } from '../../types/AllReservationsTypes';
+import { formatDate } from '../../../utils/date';
 
 export const AdminReservationsTab = () => {
   const { access_token } = useContext(AuthContext);
-  const [reservations, setReservations] = useState<Reservation[]>([]);
+  const [allreservations, setAllReservations] = useState<AllReservations[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchReservations = async () => {
-    try {
-      setLoading(true);
-      const config = {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-      };
-
-      const response = await axios.get<Reservation[]>(
-        `${API_URL}/reservations/all`,
-        config
-      );
-      setReservations(response.data);
-    } catch (error) {
-      console.error('Error fetching reservations:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchAllReservations = async () => {
+      try {
+        setLoading(true);
+        const config = {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+          },
+        };
+
+        const response = await axios.get<AllReservations[]>(
+          `${API_URL}/reservations/all`,
+          config
+        );
+        setAllReservations(response.data);
+      } catch (error) {
+        console.log('Error fetching reservations:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     if (access_token) {
-      fetchReservations();
+      fetchAllReservations();
     }
   }, [access_token]);
 
@@ -55,16 +56,16 @@ export const AdminReservationsTab = () => {
             </tr>
           </thead>
           <tbody>
-            {reservations.map((reservation) => (
+            {allreservations.map((reservation) => (
               <tr key={reservation._id}>
                 <td>{reservation.user?.email || reservation.userId}</td>
                 <td>
                   {reservation.car?.make} {reservation.car?.model}
                 </td>
-                <td>{new Date(reservation.startDate).toLocaleDateString()}</td>
-                <td>{new Date(reservation.endDate).toLocaleDateString()}</td>
+                <td>{formatDate(reservation.startDate)}</td>
+                <td>{formatDate(reservation.endDate)}</td>
                 <td>{reservation.totalPrice} €</td>
-                <td>{new Date(reservation.createdAt).toLocaleDateString()}</td>
+                <td>{formatDate(reservation.createdAt)}</td>
               </tr>
             ))}
           </tbody>
